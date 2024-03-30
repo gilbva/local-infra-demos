@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dummy-http
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dummy-http-lb
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: dummy-http-lb
+    spec:
+      containers:
+      - name: mockserver-pod
+        image: mockserver/mockserver
