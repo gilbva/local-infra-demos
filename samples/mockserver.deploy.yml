@@ -21,3 +21,5 @@ spec:
       containers:
       - name: mockserver-pod
         image: mockserver/mockserver
+        ports:
+        - containerPort: 1080

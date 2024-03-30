@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-pod
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tomcat-lb
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: tomcat-lb
+    spec:
+      containers:
+      - name: tomcat-pod
+        image: tomcat:latest
+        ports:
+        - containerPort: 8080
