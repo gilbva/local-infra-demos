@@ -1,6 +1,16 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# libvirt qemu kvm <- chequear que libvirt use kvm
+# vagrant vagrant-libvirt
+# kubectl k3sup
+
+def_memory = 1024
+def_cpu = 1
+
+# def_memory = 8192
+# def_cpu = 2
+
 ssh_pub_key = File.readlines("#{Dir.home}/.ssh/id_rsa.pub").first.strip
 
 $script = <<-SCRIPT
@@ -19,8 +29,8 @@ Vagrant.configure("2") do |config|
     cfg.vm.network "private_network", ip: "10.10.8.11"
 
     cfg.vm.provider "libvirt" do |v|
-      v.memory = 8192
-      v.cpus = 2
+      v.memory = def_memory
+      v.cpus = def_cpu
     end
 
     config.vm.provision "shell", inline: $script
@@ -32,8 +42,8 @@ Vagrant.configure("2") do |config|
     cfg.vm.network "private_network", ip: "10.10.8.12"
 
     cfg.vm.provider "libvirt" do |v|
-      v.memory = 8192
-      v.cpus = 2
+      v.memory = def_memory
+      v.cpus = def_cpu
     end
 
     config.vm.provision "shell", inline: $script
@@ -45,8 +55,8 @@ Vagrant.configure("2") do |config|
     cfg.vm.network "private_network", ip: "10.10.8.13"
 
     cfg.vm.provider "libvirt" do |v|
-      v.memory = 8192
-      v.cpus = 2
+      v.memory = def_memory
+      v.cpus = def_cpu
     end
 
     config.vm.provision "shell", inline: $script
@@ -58,8 +68,8 @@ Vagrant.configure("2") do |config|
     cfg.vm.network "private_network", ip: "10.10.8.21"
 
     cfg.vm.provider "libvirt" do |v|
-      v.memory = 8192
-      v.cpus = 2
+      v.memory = def_memory
+      v.cpus = def_cpu
     end
 
     config.vm.provision "shell", inline: $script
@@ -71,8 +81,8 @@ Vagrant.configure("2") do |config|
     cfg.vm.network "private_network", ip: "10.10.8.22"
 
     cfg.vm.provider "libvirt" do |v|
-      v.memory = 8192
-      v.cpus = 2
+      v.memory = def_memory
+      v.cpus = def_cpu
     end
 
     config.vm.provision "shell", inline: $script
@@ -84,8 +94,8 @@ Vagrant.configure("2") do |config|
     cfg.vm.network "private_network", ip: "10.10.8.23"
 
     cfg.vm.provider "libvirt" do |v|
-      v.memory = 8192
-      v.cpus = 2
+      v.memory = def_memory
+      v.cpus = def_cpu
     end
 
     config.vm.provision "shell", inline: $script
