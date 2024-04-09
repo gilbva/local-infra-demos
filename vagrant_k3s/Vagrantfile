@@ -5,9 +5,6 @@
 # vagrant vagrant-libvirt
 # kubectl k3sup
 
-def_memory = 1024
-def_cpu = 1
-
 # def_memory = 8192
 # def_cpu = 2
 
@@ -21,84 +18,39 @@ echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
 echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
 SCRIPT
 
+
+def_memory = 1024
+def_cpu = 1
+
+servers = [
+  { :hostname => "vkubemaster1", :ip => "10.10.8.11" },
+  { :hostname => "vkubemaster2", :ip => "10.10.8.12" },
+  { :hostname => "vkubemaster3", :ip => "10.10.8.13" },
+  { :hostname => "vkubeworker1", :ip => "10.10.8.14" },
+  { :hostname => "vkubeworker2", :ip => "10.10.8.15" },
+  { :hostname => "vkubeworker3", :ip => "10.10.8.16" },
+  { :hostname => "vkubeworker4", :ip => "10.10.8.17" },
+  { :hostname => "vkubeworker5", :ip => "10.10.8.18" },
+  { :hostname => "vkubeworker6", :ip => "10.10.8.19" },
+  { :hostname => "vkubeworker7", :ip => "10.10.8.20" },
+  { :hostname => "vkubeworker8", :ip => "10.10.8.21" }
+]
+
 Vagrant.configure("2") do |config|
 
-  config.vm.define "master1" do |cfg|
-    cfg.vm.box = "bento/ubuntu-22.04"
-    cfg.vm.hostname = "kube-master1"
-    cfg.vm.network "private_network", ip: "10.10.8.11"
-
-    cfg.vm.provider "libvirt" do |v|
-      v.memory = def_memory
-      v.cpus = def_cpu
-    end
-
-    config.vm.provision "shell", inline: $script
-  end
-
-  config.vm.define "master2" do |cfg|
-    cfg.vm.box = "bento/ubuntu-22.04"
-    cfg.vm.hostname = "kube-master2"
-    cfg.vm.network "private_network", ip: "10.10.8.12"
-
-    cfg.vm.provider "libvirt" do |v|
-      v.memory = def_memory
-      v.cpus = def_cpu
-    end
-
-    config.vm.provision "shell", inline: $script
-  end
-
-  config.vm.define "master3" do |cfg|
-    cfg.vm.box = "bento/ubuntu-22.04"
-    cfg.vm.hostname = "kube-master3"
-    cfg.vm.network "private_network", ip: "10.10.8.13"
-
-    cfg.vm.provider "libvirt" do |v|
-      v.memory = def_memory
-      v.cpus = def_cpu
-    end
-
-    config.vm.provision "shell", inline: $script
-  end
-
-  config.vm.define "worker1" do |cfg|
-    cfg.vm.box = "bento/ubuntu-22.04"
-    cfg.vm.hostname = "kube-worker1"
-    cfg.vm.network "private_network", ip: "10.10.8.21"
-
-    cfg.vm.provider "libvirt" do |v|
-      v.memory = def_memory
-      v.cpus = def_cpu
-    end
-
-    config.vm.provision "shell", inline: $script
-  end
-
-  config.vm.define "worker2" do |cfg|
-    cfg.vm.box = "bento/ubuntu-22.04"
-    cfg.vm.hostname = "kube-worker2"
-    cfg.vm.network "private_network", ip: "10.10.8.22"
-
-    cfg.vm.provider "libvirt" do |v|
-      v.memory = def_memory
-      v.cpus = def_cpu
-    end
-
-    config.vm.provision "shell", inline: $script
-  end
-
-  config.vm.define "worker3" do |cfg|
-    cfg.vm.box = "bento/ubuntu-22.04"
-    cfg.vm.hostname = "kube-worker3"
-    cfg.vm.network "private_network", ip: "10.10.8.23"
-
-    cfg.vm.provider "libvirt" do |v|
-      v.memory = def_memory
-      v.cpus = def_cpu
-    end
-
-    config.vm.provision "shell", inline: $script
+  servers.each do |server|
+    config.vm.define server[:hostname] do |cfg|
+      cfg.vm.box = "bento/ubuntu-22.04"
+      cfg.vm.hostname = server[:hostname]
+      cfg.vm.network "private_network", ip: server[:ip]
+  
+      cfg.vm.provider "libvirt" do |v|
+        v.memory = def_memory
+        v.cpus = def_cpu
+      end
+  
+      config.vm.provision "shell", inline: $script
+    end  
   end
 end
 
