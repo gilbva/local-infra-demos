@@ -9,6 +9,9 @@ Vagrant.configure("2") do |config|
       cfg.vm.network "private_network", ip: "10.7.4.#{10+n}"
   
       cfg.vm.provider "libvirt" do |v|
+        v.driver = "kvm"
+        v.storage_pool_name = "hdd16"
+        v.storage :file, :size => '400G'
         v.memory = 32000
         v.cpus = 4
       end

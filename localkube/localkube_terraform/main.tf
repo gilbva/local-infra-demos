@@ -40,12 +40,12 @@ resource "proxmox_virtual_environment_vm" "kubemaster1" {
   }
 
   disk {
-    datastore_id = "local-lvm"
+    datastore_id = "hdd0"
     file_id      = proxmox_virtual_environment_download_file.ubuntu_cloud_image.id
     interface    = "virtio0"
     iothread     = true
     discard      = "on"
-    size         = 20
+    size         = 80
   }
 
   network_device {
@@ -55,7 +55,7 @@ resource "proxmox_virtual_environment_vm" "kubemaster1" {
 
 resource "proxmox_virtual_environment_download_file" "ubuntu_cloud_image" {
   content_type = "iso"
-  datastore_id = "local-lvm"
+  datastore_id = "hdd0"
   node_name    = "pve0"
 
   url = "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
