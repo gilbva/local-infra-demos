@@ -49,7 +49,7 @@ Vagrant.configure("2") do |config|
         v.cpus = def_cpu
       end
   
-      config.vm.provision "shell", inline: $script
+      cfg.vm.provision "shell", inline: $script
     end  
   end
 end

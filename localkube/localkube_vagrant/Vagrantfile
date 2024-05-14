@@ -1,0 +1,19 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  3.times do |n|
+    config.vm.define "pve#{n}" do |cfg|
+      cfg.vm.box = "aalmenar/proxmox-8"
+      cfg.vm.hostname = "pve#{n}"
+      cfg.vm.network "private_network", ip: "10.7.4.#{10+n}"
+  
+      cfg.vm.provider "libvirt" do |v|
+        v.memory = 32000
+        v.cpus = 4
+      end
+  
+      # cfg.vm.provision "shell", inline: $script
+    end  
+  end
+end
