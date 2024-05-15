@@ -9,8 +9,8 @@ terraform {
 
 provider "proxmox" {
     endpoint = "https://10.7.4.10:8006/"
-    username = "terraform@pve"
-    password = "asd123"
+    username = "root@pam"
+    password = "vagrant"
     insecure = true
     ssh {
       username = "root"
@@ -57,6 +57,14 @@ resource "proxmox_virtual_environment_vm" "kubemasters" {
   for_each = var.servers
     name      = "${each.value["host"]}"
     node_name = "${each.value["node"]}"
+
+    cpu {
+      cores = 1
+    }
+
+    memory {
+      dedicated = 2048
+    }
 
     initialization {
       ip_config {

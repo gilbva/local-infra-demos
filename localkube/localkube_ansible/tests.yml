@@ -1,9 +1,17 @@
 ---
- - name: havenano
-   hosts: all
-   become: true
-   tasks:
-    - name: ensure nano is there
-      apt:
-        name: nano
-        state: latest
+  - name: havenano
+    hosts: all
+    become: true
+    tasks:
+      - name: ensure nano is there
+        apt:
+          name: nano
+          state: latest
+
+  - name: disable-ufw
+    hosts: all
+    become: true
+    tasks:
+      - name: disable ufw
+        ufw:
+          state: disabled 
